@@ -1,3 +1,26 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --bg-primary: #1F2937;
+    --bg-primary-hover: rgb(45, 58, 78);
+}
+
+body {
+    max-width: 500px;
+    margin: auto;
+}
+
+.date-note {
+    zoom: 70%;
+    color: rgba(0, 0, 0, 0.525);
+}
+
+.bg-primary {
+    background-color: var(--bg-primary);
+}
+
+.bg-primary:hover {
+    background-color: var(--bg-primary-hover);
+}

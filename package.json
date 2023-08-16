@@ -8,21 +8,26 @@
     "start": "next start",
     "lint": "next lint",
     "test": "echo No tests found.",
+    "json:server": "json-server --watch db.json --port 3001",
     "format": "prettier --write --ignore-path=.gitignore .",
     "format:check": "prettier --check --ignore-path=.gitignore .",
     "deploy:vercel": "vercel"
   },
   "dependencies": {
+    "@headlessui/react": "^1.7.16",
+    "@heroicons/react": "^2.0.18",
     "@types/node": "20.4.9",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
     "framer-motion": "^9.1.7",
+    "json-server": "^0.17.3",
     "next": "13.4.13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.45.4",
+    "react-select": "^5.7.4",
     "typescript": "5.1.6"
   },
   "devDependencies": {
