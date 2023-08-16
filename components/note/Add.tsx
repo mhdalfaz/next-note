@@ -22,9 +22,7 @@ const Add = () => {
   const options: Option[] = [];
   const isMutating = isFetching || isPending;
 
-  const handleChangeSelect = (newValue: Option[]) => {
-    console.log(newValue);
-
+  const handleChangeSelect = (newValue: MultiValue<Option>) => {
     setSelectedOptions(newValue);
   };
 
