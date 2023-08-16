@@ -10,8 +10,7 @@ const initState: Partial<Note> = {
 };
 
 const Add = () => {
-  const host = process.env.NEXT_PUBLIC_DB_SERVER_HOST || "localhost";
-  const port = process.env.NEXT_PUBLIC_DB_SERVER_PORT || "8080";
+  const json_server_url = process.env.NEXT_PUBLIC_JSON_SERVER_URL;
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
@@ -33,7 +32,7 @@ const Add = () => {
 
     setIsFetching(true);
 
-    const res = await fetch(`${host}:${port}/notes`, {
+    const res = await fetch(`${json_server_url}/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
