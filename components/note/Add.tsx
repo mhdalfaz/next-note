@@ -10,7 +10,7 @@ const initState: Partial<Note> = {
 };
 
 const Add = () => {
-  const json_server_url = process.env.NEXT_PUBLIC_JSON_SERVER_URL;
+  const json_server_url = process.env.NEXT_PUBLIC_DB_SERVER_HOST;
   const router = useRouter();
   const pathname = usePathname();
   const [isPending, startTransition] = useTransition();
