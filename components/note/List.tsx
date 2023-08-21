@@ -4,11 +4,12 @@ import Note from './Note';
 
 export default function List() {
   const [notes, setNotes] = useState<Note[]>([]);
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const notes = await fetchNotes()
-      setNotes(notes)
+      const orderingNotes = notes.sort((a, b) => b.id - a.id)
+      setNotes(orderingNotes)
     }
 
     fetchData().catch((e) => {

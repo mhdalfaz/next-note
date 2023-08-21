@@ -1,12 +1,14 @@
 import React, { ChangeEvent, FormEvent, useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { currentDate } from "@/utils/helpers";
+import { getCurrentDate, changeFormatDate } from "@/utils/helpers";
 import CreatableSelect from 'react-select/creatable';
+import { MultiValue } from "react-select";
 
 const initState: Partial<Note> = {
   title: "",
   description: "",
-  date: currentDate(),
+  date: getCurrentDate(),
+  tags: []
 };
 
 const Add = () => {
@@ -21,14 +23,27 @@ const Add = () => {
   const options: Option[] = [];
   const isMutating = isFetching || isPending;
 
-  const handleChangeSelect = (newValue: any) => {
-    setSelectedOptions(newValue);
+  const handleChangeSelect = (newValue: MultiValue<Option>) => {
+    let option: Option[] = []
+    let tagValue: string[] = []
+
+    newValue.forEach( (obj, index) => {
+      option.push(obj);
+      tagValue.push(obj.value);
+    });
+
+    setSelectedOptions(option);
+    setData((prevData) => ({
+      ...prevData,
+      "tags": tagValue
+    }));
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const { title, description, date } = data;
+    const { title, description, tags } = data;
+    const date = changeFormatDate(data.date, "dd/mm/yyyy")
 
     setIsFetching(true);
 
@@ -40,6 +55,8 @@ const Add = () => {
       body: JSON.stringify({
         title,
         description,
+        date,
+        tags
       }),
     });
 
@@ -51,6 +68,8 @@ const Add = () => {
       ...prevData,
       title: "",
       description: "",
+      date: getCurrentDate(),
+      tags: []
     }));
 
     startTransition(() => {
