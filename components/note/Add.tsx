@@ -1,14 +1,14 @@
 import React, { ChangeEvent, FormEvent, useState, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { getCurrentDate, changeFormatDate } from "@/utils/helpers";
-import CreatableSelect from 'react-select/creatable';
+import CreatableSelect from "react-select/creatable";
 import { MultiValue } from "react-select";
 
 const initState: Partial<Note> = {
   title: "",
   description: "",
   date: getCurrentDate(),
-  tags: []
+  tags: [],
 };
 
 const Add = () => {
@@ -24,10 +24,10 @@ const Add = () => {
   const isMutating = isFetching || isPending;
 
   const handleChangeSelect = (newValue: MultiValue<Option>) => {
-    let option: Option[] = []
-    let tagValue: string[] = []
+    let option: Option[] = [];
+    let tagValue: string[] = [];
 
-    newValue.forEach( (obj, index) => {
+    newValue.forEach((obj, index) => {
       option.push(obj);
       tagValue.push(obj.value);
     });
@@ -35,7 +35,7 @@ const Add = () => {
     setSelectedOptions(option);
     setData((prevData) => ({
       ...prevData,
-      "tags": tagValue
+      tags: tagValue,
     }));
   };
 
@@ -43,7 +43,7 @@ const Add = () => {
     e.preventDefault();
 
     const { title, description, tags } = data;
-    const date = changeFormatDate(data.date, "dd/mm/yyyy")
+    const date = changeFormatDate(data.date, "dd/mm/yyyy");
 
     setIsFetching(true);
 
@@ -56,7 +56,7 @@ const Add = () => {
         title,
         description,
         date,
-        tags
+        tags,
       }),
     });
 
@@ -69,7 +69,7 @@ const Add = () => {
       title: "",
       description: "",
       date: getCurrentDate(),
-      tags: []
+      tags: [],
     }));
 
     startTransition(() => {
@@ -114,6 +114,7 @@ const Add = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Title"
             autoFocus
+            required
           />
         </div>
 
