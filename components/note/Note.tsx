@@ -1,23 +1,44 @@
-import React from 'react'
+import React from "react";
+import Dropdown from "./Dropdown";
+import { useRouter } from "next/navigation";
 
-export default function Note (note: Note) {
+export default function Note(note: Note) {
+  const router = useRouter();
+  const handleDetail = () => {
+    router.push(`/note/${note.id}`);
+  };
+
   return (
-    <div className="rounded overflow-hidden shadow-md bg-white mx-3 my-2">
-      <div className="px-4 py-4">
-        <div className="font-bold text-xl mb-2">{note.title}</div>
-        <p className="text-gray-700 text-base">
-          {note.description}
-        </p>
-        <p className='date-note'>{note.date && note.date.toString()}</p>
-      </div>
-      <hr />
-      <div className="px-4 pt-4 pb-2">
-        {note.tags && note.tags.map((tag: string, i: number) => (
-          <span className="inline-block bg-gray-200 rounded-xl px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2" key={note.id*i}>
-            #{tag}
+    <div className="rounded shadow-md bg-white mx-3 my-2">
+      <div className="border rounded p-4 relative">
+        {/* Option Menu */}
+        <div className="absolute top-0 right-0 p-3">
+          <Dropdown note={note}></Dropdown>
+        </div>
+
+        {/* Content of the card */}
+        <div className="font-bold text-xl mb-2">
+          <span
+            className="hover:underline underline-offset-1 cursor-pointer"
+            onClick={handleDetail}
+          >
+            {note.title}
           </span>
-        ))}
+        </div>
+        <p className="text-gray-700 text-base">{note.description}</p>
+        <p className="date-note">{note.date && note.date.toString()}</p>
+
+        <hr />
+        {note.tags &&
+          note.tags.map((tag: string, i: number) => (
+            <span
+              className="inline-block p-1 text-sm font-semibold text-gray-700 hover:underline underline-offset-1 cursor-pointer"
+              key={note.id * i}
+            >
+              #{tag}
+            </span>
+          ))}
       </div>
     </div>
-  )
+  );
 }
