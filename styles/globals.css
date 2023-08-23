@@ -29,3 +29,9 @@ body {
   min-width: 340px;
   max-width: 500px;
 }
+
+.input-search {
+  background-color: #ffffff00;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  font-size: 20px;
+}

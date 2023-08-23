@@ -48,7 +48,7 @@ export default function Note(note: Note) {
           {note.tags &&
             note.tags.map((tag: string, i: number) => (
               <span
-                className="inline-block p-1 text-sm font-semibold text-gray-700 hover:underline underline-offset-1 cursor-pointer"
+                className="inline-block pr-1 text-sm font-semibold text-gray-700 hover:underline underline-offset-1 cursor-pointer"
                 key={note.id * i}
               >
                 #{tag}
