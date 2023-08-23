@@ -133,6 +133,7 @@ const Add = () => {
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             cols={30}
             rows={10}
+            placeholder="Description"
           />
         </div>
 
@@ -150,7 +151,6 @@ const Add = () => {
             value={data.date && data.date.toString()}
             onChange={handleChange}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            autoFocus
           />
         </div>
 
@@ -168,6 +168,7 @@ const Add = () => {
             options={options}
             value={selectedOptions}
             onChange={handleChangeSelect}
+            placeholder="Create tags"
           />
         </div>
 

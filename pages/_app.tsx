@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <Layout>
-          <Component {...pageProps}/>
+          <Component {...pageProps} />
         </Layout>
       </QueryClientProvider>
     </>
