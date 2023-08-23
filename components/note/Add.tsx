@@ -3,6 +3,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { getCurrentDate, changeFormatDate } from "@/utils/helpers";
 import CreatableSelect from "react-select/creatable";
 import { MultiValue } from "react-select";
+import Form from "./Form";
 
 const initState: Partial<Note> = {
   title: "",
@@ -98,85 +99,26 @@ const Add = () => {
   const content = (
     <div className="mx-3 my-2">
       <form onSubmit={handleSubmit} style={{ opacity: !isMutating ? 1 : 0.7 }}>
-        <div className="mb-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-1"
-            htmlFor="title"
-          >
-            Title
-          </label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={data.title}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Title"
-            autoFocus
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-1"
-            htmlFor="description"
-          >
-            Description
-          </label>
-          <textarea
-            id="description"
-            name="description"
-            value={data.description}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            cols={30}
-            rows={10}
-            placeholder="Description"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-1"
-            htmlFor="date"
-          >
-            Date
-          </label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={data.date && data.date.toString()}
-            onChange={handleChange}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-
-        <div className="mb-3">
-          <label
-            className="block text-gray-700 text-sm font-bold mb-1"
-            htmlFor="date"
-          >
-            Tags
-          </label>
-          <CreatableSelect
-            isMulti
-            id="tags"
-            name="tags"
-            options={options}
-            value={selectedOptions}
-            onChange={handleChangeSelect}
-            placeholder="Create tags"
-          />
-        </div>
+        <Form
+          data={data}
+          handleChange={handleChange}
+          handleChangeSelect={handleChangeSelect}
+          options={options}
+          selectedOptions={selectedOptions}
+        ></Form>
 
         <button
           type="submit"
           className="bg-primary text-gray-300 hover:text-white font-bold py-2 px-4 rounded my-2"
         >
           Submit
+        </button>
+        <button
+          type="button"
+          onClick={() => router.back()}
+          className="bg-gray-200 hover:bg-gray-100 text-gray-600 hover:text-gray-800 focus:outline-none font-bold py-2 px-4 rounded ml-2"
+        >
+          Cancel
         </button>
       </form>
     </div>

@@ -43,12 +43,12 @@ const Detail = () => {
         </div>
 
         <div className="font-bold text-xl">{note.title}</div>
-        <p className="date-note mb-5">{note.date && note.date.toString()}</p>
+        <p className="date-note mb-3">{note.date && note.date.toString()}</p>
         <hr />
         {note.tags &&
           note.tags.map((tag: string, i: number) => (
             <span
-              className="inline-block p-1 text-sm font-semibold text-gray-700 hover:underline underline-offset-1 cursor-pointer"
+              className="inline-block pr-1 text-sm font-bold text-gray-700 hover:underline underline-offset-1 cursor-pointer my-2"
               key={note.id * i}
             >
               #{tag}
