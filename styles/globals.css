@@ -24,3 +24,8 @@ body {
 .bg-primary:hover {
     background-color: var(--bg-primary-hover);
 }
+
+.alert-content {
+    min-width: 340px;
+    max-width: 500px;
+}

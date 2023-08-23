@@ -1,10 +1,8 @@
-import Detail from '@/components/note/Detail'
-import React from 'react'
+import Detail from "@/components/note/Detail";
+import React from "react";
 
 const DetailNote = () => {
-  return (
-    <Detail />
-  )
-}
+  return <Detail />;
+};
 
-export default DetailNote
+export default DetailNote;

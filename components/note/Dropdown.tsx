@@ -1,58 +1,38 @@
-import { Fragment, MouseEvent, useState, useTransition } from "react";
+import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
+
+type Params = {
+  note: Note;
+  onShowAlertChange: () => void;
+}
 
 function classNames(...classes: any[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Dropdown({ note }: { note: Note }) {
-  const json_server_url = process.env.NEXT_PUBLIC_DB_SERVER_HOST;
+export default function Dropdown({ note, onShowAlertChange }: Params) {
   const router = useRouter();
-  const [isPending, startTransition] = useTransition();
-  const [isFetching, setIsFetching] = useState(false);
-
-  const isMutating = isFetching || isPending;
 
   const handleEdit = () => {
     router.push(`/note/${note.id}/edit`);
   };
 
-  const handleDelete = async (e: MouseEvent<HTMLAnchorElement>) => {
-    setIsFetching(true);
-
-    const res = await fetch(`${json_server_url}/notes/${note.id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: note.id,
-      }),
-    });
-
-    await res.json();
-
-    setIsFetching(false);
-
-    startTransition(() => {
-      // Refresh the current route and fetch new data
-      // from the server without losing
-      // client-side browser or React state.
-      router.refresh();
-    });
+  const handleShowAlert = () => {
+    // Toggle the parent state
+    onShowAlertChange();
   };
 
   const options = [
     { label: "Edit", action: handleEdit },
-    { label: "Delete", action: handleDelete },
+    { label: "Delete", action: handleShowAlert },
   ];
 
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
-        <Menu.Button className="relative flex rounded-full bg-white text-sm p-1">
+        <Menu.Button className="relative flex rounded-full text-sm p-1">
           <EllipsisVerticalIcon className="h-5 w-5" />
         </Menu.Button>
       </div>
@@ -78,7 +58,6 @@ export default function Dropdown({ note }: { note: Note }) {
                       "block px-4 py-2 text-sm"
                     )}
                     onClick={option.action}
-                    aria-disabled={isMutating}
                   >
                     {option.label}
                   </a>
