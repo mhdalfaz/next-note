@@ -9,17 +9,6 @@ export default function Index() {
   const [notes, setNotes] = useState<Note[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredResults, setFilteredResults] = useState<Note[]>([]);
-  const [order, setOrder] = useState<string>("");
-
-  const handleOrderAsc = () => {
-    setOrder("asc");
-    filteredResults.sort((a, b) => a.title.localeCompare(b.title));
-  };
-
-  const handleOrderDesc = () => {
-    setOrder("desc");
-    filteredResults.sort((a, b) => b.title.localeCompare(a.title));
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,17 +23,40 @@ export default function Index() {
     });
   }, []);
 
-  const performSearch = (query: string) => {
-    const filteredData = notes.filter((item) =>
-      item.title.toLowerCase().includes(query.toLowerCase())
+  const handleOrderAsc = () => {
+    const orderingNotes = [...notes].sort((a, b) =>
+      a.title.localeCompare(b.title)
     );
+    setFilteredResults(orderingNotes);
+  };
+
+  const handleOrderDesc = () => {
+    const orderingNotes = [...notes].sort((a, b) =>
+      b.title.localeCompare(a.title)
+    );
+    setFilteredResults(orderingNotes);
+  };
+
+  const handleSearch = (query: string, tag: boolean = false) => {
+    const filteredData = notes.filter((item) => {
+      if (tag) {
+        return item.tags.includes(query);
+      }
+      return item.title.toLowerCase().includes(query.toLowerCase());
+    });
 
     setFilteredResults(filteredData);
   };
 
+  const handleTag = (tag: string) => {
+    const searchTag = `#${tag}`;
+    setSearchQuery(searchTag);
+    handleSearch(tag, true);
+  };
+
   return (
     <>
-      <div className="mb-3 px-3 gap-x-3 items-center grid grid-cols-[70px,auto,40px] gap-4">
+      <div className="mb-3 px-3 gap-x-3 items-center grid grid-cols-[70px,auto,40px]">
         <Link
           href="/note/create"
           className="bg-primary text-gray-300 hover:text-white font-bold py-2 px-4 rounded text-center"
@@ -54,11 +66,11 @@ export default function Index() {
         <Search
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
-          performSearch={performSearch}
+          handleSearch={handleSearch}
         />
         <Filter onChangeAsc={handleOrderAsc} onChangeDesc={handleOrderDesc} />
       </div>
-      <List notes={filteredResults} />
+      <List notes={filteredResults} onHandleTag={handleTag} />
     </>
   );
 }
