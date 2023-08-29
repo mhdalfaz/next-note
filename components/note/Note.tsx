@@ -3,7 +3,12 @@ import Dropdown from "./Dropdown";
 import { useRouter } from "next/navigation";
 import AlertModal from "./AlertModal";
 
-export default function Note(note: Note) {
+type Params = {
+  note: Note;
+  onHandleTag: (tag: string) => void;
+};
+
+export default function Note({ note, onHandleTag }: Params) {
   const router = useRouter();
   const deleteMessage = "Are you sure you want to delete this data?";
   const [showAlert, setShowAlert] = useState(false);
@@ -18,6 +23,10 @@ export default function Note(note: Note) {
 
   const handleCloseAlert = () => {
     setShowAlert(false);
+  };
+
+  const handleClickTag = (tag: string) => {
+    onHandleTag(tag);
   };
 
   return (
@@ -50,6 +59,7 @@ export default function Note(note: Note) {
               <span
                 className="inline-block pr-1 text-sm font-semibold text-gray-700 hover:underline underline-offset-1 cursor-pointer"
                 key={note.id * i}
+                onClick={() => handleClickTag(tag)}
               >
                 #{tag}
               </span>
