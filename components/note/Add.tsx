@@ -48,7 +48,7 @@ const Add = () => {
 
     setIsFetching(true);
 
-    const res = await fetch(`${json_server_url}/notes`, {
+    const res = await fetch(`${json_server_url}/json/notes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

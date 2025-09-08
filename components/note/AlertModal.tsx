@@ -22,7 +22,7 @@ function AlertModal({ noteId, isOpen, onClose, message }: Params) {
   const handleDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     setIsFetching(true);
 
-    const res = await fetch(`${json_server_url}/notes/${noteId}`, {
+    const res = await fetch(`${json_server_url}/json/notes/${noteId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

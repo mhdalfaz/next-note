@@ -52,7 +52,7 @@ const Edit = ({ note }: { note: Note }) => {
 
     setIsFetching(true);
 
-    const res = await fetch(`${json_server_url}/notes/${note.id}`, {
+    const res = await fetch(`${json_server_url}/json/notes/${note.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
